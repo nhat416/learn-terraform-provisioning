@@ -9,8 +9,8 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # source blocks are generated from your builders; a source can be referenced in
 # build blocks. A build block runs provisioners and post-processors on a
 # source.
-source "amazon-ebs" "example" {
-  ami_name      = "learn-terraform-packer-${local.timestamp}"
+source "amazon-ebs" "demo" {
+  ami_name      = "terraform-packer-wecloud${local.timestamp}"
   instance_type = "t2.micro"
   region        = var.region
   source_ami_filter {
@@ -27,13 +27,13 @@ source "amazon-ebs" "example" {
 
 # a build block invokes sources and runs provisioning steps on them.
 build {
-  sources = ["source.amazon-ebs.example"]
+  sources = ["source.amazon-ebs.demo"]
 
   provisioner "file" {
-    source      = "../tf-packer.pub"
+    source      = "tf-packer.pub"
     destination = "/tmp/tf-packer.pub"
   }
   provisioner "shell" {
-    script = "../scripts/setup.sh"
+    script = "scripts/setup.sh"
   }
 }

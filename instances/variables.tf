@@ -9,7 +9,7 @@ variable "cidr_subnet" {
 
 variable "environment_tag" {
   description = "Environment tag"
-  default     = "Learn"
+  default     = "Demo"
 }
 
 variable "region"{
